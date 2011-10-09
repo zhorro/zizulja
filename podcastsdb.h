@@ -2,11 +2,11 @@
 #define PODCASTSDB_H
 
 #include <QThread>
-#include <QtSQL>
+#include <QtSql>
 #include <QUrl>
 
 #include "rssfeeditem.h"
-#include "RSSUpdater.h"
+#include "rssUpdater.h"
 #include "downloadqueue.h"
 
 class  podcastsDB : public QThread
@@ -20,7 +20,7 @@ public:
 
     bool exists (QUrl);
 
-	void feedQuery( QSqlQuery &query, QUrl &url );
+	QSqlQuery feedQuery( QUrl url );
 
 	void append (QUrl);
 public slots:
@@ -43,7 +43,6 @@ private:
     rssUpdater upa;
     DownloadQueue dq;
 
-    void initMeta(void);
     QString imgName (QUrl rssUrl);
 };
 extern podcastsDB pdb;
