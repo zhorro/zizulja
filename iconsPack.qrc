@@ -1,0 +1,22 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>IconsPack/Audio.svg</file>
+        <file>IconsPack/Audio_downloaded.svg</file>
+        <file>IconsPack/Audio_downloaded_new.svg</file>
+        <file>IconsPack/Audio_downloading.svg</file>
+        <file>IconsPack/Audio_failed.svg</file>
+        <file>IconsPack/Audio_new.svg</file>
+        <file>IconsPack/Audio_queued.svg</file>
+        <file>IconsPack/Audio_suspended.svg</file>
+        <file>IconsPack/Feed.svg</file>
+        <file>IconsPack/Podcatcher_64px.svg</file>
+        <file>IconsPack/Video.svg</file>
+        <file>IconsPack/Video_downloaded.svg</file>
+        <file>IconsPack/Video_downloaded_new.svg</file>
+        <file>IconsPack/Video_downloading.svg</file>
+        <file>IconsPack/Video_failed.svg</file>
+        <file>IconsPack/Video_new.svg</file>
+        <file>IconsPack/Video_queued.svg</file>
+        <file>IconsPack/Video_suspended.svg</file>
+    </qresource>
+</RCC>
