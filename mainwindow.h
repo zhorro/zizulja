@@ -21,4 +21,20 @@ private:
     Ui::MainWindow *ui;
 };
 
+//class Singleton
+//{
+//public:
+//	static Singleton *instance()
+//	{
+//		static Singleton pointer;
+//		return &pointer;
+//	}
+//private:
+//	Singleton();
+//};
+//inline singleton()
+//{
+//	return Singleton::instance();
+//}
+
 #endif // MAINWINDOW_H
