@@ -5,7 +5,7 @@
 #include <QUrlInfo>
 
 #include <QFile>
-#include "RSSUpdater.h"
+#include "rssUpdater.h"
 
 rssUpdater::rssUpdater(QObject *parent) :
     QThread(parent), currentReply(0)

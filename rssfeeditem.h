@@ -7,11 +7,12 @@
 #include <QDateTime>
 #include <QSqlRecord>
 #include <QSqlQuery>
+#include <QVariant>
 
 class rssFeedItem
 {
 public:
-    rssFeedItem (QSqlRecord * src = NULL);
+	rssFeedItem (QSqlRecord * src = 0);
     void bindItem (QSqlQuery & query);
 
     QUrl mp3Url;
@@ -31,5 +32,7 @@ public:
     QUrl src;
     bool stillInFeed;
 };
+
+Q_DECLARE_METATYPE(rssFeedItem)
 
 #endif // RSSFEEDITEM_H
