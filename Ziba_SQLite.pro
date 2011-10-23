@@ -17,7 +17,8 @@ SOURCES += main.cpp\
     opmlimport.cpp \
     fileDownloader.cpp \
     downloadqueue.cpp \
-    rssUpdater.cpp
+    rssUpdater.cpp \
+    zibazing.cpp
 
 HEADERS  += mainwindow.h \
     podcastsdb.h \
@@ -25,16 +26,23 @@ HEADERS  += mainwindow.h \
     opmlimport.h \
     fileDownloader.h \
     downloadqueue.h \
-    rssUpdater.h
+    rssUpdater.h \
+    zibazing.h
 
 FORMS    += mainwindow.ui
 
 OTHER_FILES += \
     ListOfRSSItem.qml \
-    ListOfRSSFeed.qml
+    ListOfRSSFeed.qml \
+    feeds01.opml \
+    podcast_db.sqlite
 
 RESOURCES += \
     iconsPack.qrc
+
+
+
+
 
 
 

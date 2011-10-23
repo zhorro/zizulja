@@ -20,9 +20,9 @@ public:
 
     bool exists (QUrl);
 
-	QSqlQuery feedQuery( QUrl url );
+    QSqlQuery feedQuery( QUrl url );
 
-	void append (QUrl);
+    void append (QUrl);
 public slots:
     void startUpdate (QUrl src);
     void addFeed (rssFeedItem item, QUrl src);
@@ -44,6 +44,7 @@ private:
     DownloadQueue dq;
 
     QString imgName (QUrl rssUrl);
+    QString workingFolder;
 };
 extern podcastsDB pdb;
 

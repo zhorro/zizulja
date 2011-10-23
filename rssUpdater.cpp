@@ -78,70 +78,68 @@ void rssUpdater::parseXml()
 
     while (!xml.atEnd())
     {
-        // TODO: ѕри обнаружении ссылки на картинку подкаста нужно зафигачить ее в базу
         xml.readNext();
 
         switch (processingItem)
         {
-            case parsingOther :
-                if (xml.isStartElement())
-                {
-                    if (xml.name().toString() == "item")
-                        processingItem = parsingItem;
-                    else
-                        if (xml.name().toString() == "image")
-                            processingItem = parsingImage;
-                        else
-                            processingItem = parsingOther;
-                }
-                break;
-            case parsingImage:
-            case parsingItem :
-                if (xml.isStartElement())
-                {
-                    currentTag = xml.name().toString();
-                    if (currentTag == "enclosure")
-                        rss.mp3Url.setUrl(xml.attributes().value("url").toString());
-                }
-                else if (xml.isEndElement())
-                {
-                    if (currentTag == "url" && processingItem==parsingImage)
-                    {
-                        emit gotFeedImage (address, unknownString);
-                        break;
-                    }
-                    if (currentTag == "title" && processingItem==parsingImage)
-                    {
-                        emit gotFeedTitle (address, unknownString);
-                        break;
-                    }
+        case parsingOther :
+            if (xml.isStartElement())
+            {
+                if (xml.name().toString() == "item")
+                    processingItem = parsingItem;
+                else if (xml.name().toString() == "image")
+                    processingItem = parsingImage;
+                else
                     processingItem = parsingOther;
-
-                    if (currentTag == "title")
-                        rss.title = unknownString;
-                    else if (currentTag == "link")
-                        rss.link = unknownString;
-                    else if (currentTag == "guid")
-                        rss.GUID = unknownString;
-                    else if (currentTag == "pubDate")
-                        rss.creation.fromString(unknownString);
-                    else if (currentTag == "description")
-                        rss.description = unknownString;
-
-                    // Ёлемент прочтЄн
-                    unknownString.clear();
-                    if (xml.name().toString()=="item")
-                    {
-                        processingItem = parsingOther;
-                        emit gotNewRss (rss, address);
-                    }
-
-                }
-                else if (xml.isCharacters() && !xml.isWhitespace())
+            }
+            break;
+        case parsingImage:
+        case parsingItem :
+            if (xml.isStartElement())
+            {
+                currentTag = xml.name().toString();
+                if (currentTag == "enclosure")
+                    rss.mp3Url.setUrl(xml.attributes().value("url").toString());
+            }
+            else if (xml.isEndElement())
+            {
+                if (currentTag == "url" && processingItem==parsingImage)
                 {
-                    unknownString += xml.text().toString();
+                    emit gotFeedImage (address, unknownString);
+                    break;
                 }
-                break;
+                if (currentTag == "title" && processingItem==parsingImage)
+                {
+                    emit gotFeedTitle (address, unknownString);
+                    break;
+                }
+                processingItem = parsingOther;
+
+                if (currentTag == "title")
+                    rss.title = unknownString;
+                else if (currentTag == "link")
+                    rss.link = unknownString;
+                else if (currentTag == "guid")
+                    rss.GUID = unknownString;
+                else if (currentTag == "pubDate")
+                    rss.creation.fromString(unknownString);
+                else if (currentTag == "description")
+                    rss.description = unknownString;
+
+                // Ёлемент прочтЄн
+                unknownString.clear();
+                if (xml.name().toString()=="item")
+                {
+                    processingItem = parsingOther;
+                    emit gotNewRss (rss, address);
+                }
+
+            }
+            else if (xml.isCharacters() && !xml.isWhitespace())
+            {
+                unknownString += xml.text().toString();
+            }
+            break;
         }
 
         if (xml.error() && xml.error() != QXmlStreamReader::PrematureEndOfDocumentError) {

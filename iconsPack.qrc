@@ -19,4 +19,8 @@
         <file>IconsPack/Video_queued.svg</file>
         <file>IconsPack/Video_suspended.svg</file>
     </qresource>
+    <qresource prefix="/default">
+        <file>feeds01.opml</file>
+        <file>podcast_db.sqlite</file>
+    </qresource>
 </RCC>
