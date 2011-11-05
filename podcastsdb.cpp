@@ -11,10 +11,7 @@ podcastsDB::podcastsDB(QObject *parent) :
     QThread(parent),
     upa(this),
     dq(this)
-
 {
-    workingFolder = QDir().currentPath(); //TODO: Переделать на чтение из QSetings
-
     connect(&upa, SIGNAL(startUpdate(QUrl)), this, SLOT(startUpdate (QUrl)));
     connect(&upa, SIGNAL(gotNewRss(rssFeedItem, QUrl)), this, SLOT(addFeed(rssFeedItem, QUrl)));
     connect(&upa, SIGNAL(doneUpdate(QUrl)), this, SLOT(finishUpdate (QUrl)));
@@ -22,12 +19,13 @@ podcastsDB::podcastsDB(QObject *parent) :
     connect(&upa, SIGNAL(gotFeedTitle(QUrl, QString)), this, SLOT(updateTitle (QUrl, QString)));
 
     connect(this, SIGNAL(addDownloadInQueue(QString, QString)), &dq, SLOT(addDownload(QString, QString)));
-
     connect(this, SIGNAL(updateUrl(QUrl)), &upa, SLOT(update (QUrl)));
 }
 
 void podcastsDB::run ()
 {
+    workingFolder = QDir().currentPath(); //TODO: Переделать на чтение из QSetings
+
     dbase = QSqlDatabase::addDatabase("QSQLITE");
     dbase.setDatabaseName(ziba.dbaseName());
 
@@ -36,8 +34,7 @@ void podcastsDB::run ()
         throw QString ("При открытии базы что-то пошло не так!");
         return;
     }
-
-    exec();
+//    exec();
 }
 
 podcastsDB::~podcastsDB()
@@ -236,4 +233,14 @@ QSqlQuery podcastsDB::feedQuery(QUrl url)
         qDebug() << "error finding. SQL:" << query.executedQuery();
     return query;
 }
+
+QSqlQuery podcastsDB::feedView ()
+{
+    QSqlQuery query(dbase);
+    query.prepare("SELECT * FROM sources");
+    if (!query.exec())
+        qDebug() << "error finding. SQL:" << query.executedQuery();
+    return query;
+}
+
 

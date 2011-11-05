@@ -1,15 +1,20 @@
+#include <QSqlQuery>
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "opmlimport.h"
 #include "podcastsdb.h"
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    rfModel(this)
 {
     ui->setupUi(this);
     connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(testImport()));
     connect(ui->actionUpdateAll, SIGNAL(triggered()), &pdb, SLOT(updateAll()));
+
+    ui->RSSView->setModel(&rfModel);
 }
 
 MainWindow::~MainWindow()
@@ -19,5 +24,5 @@ MainWindow::~MainWindow()
 
 void MainWindow::testImport ()
 {
-    OPMLImport ("C:\\Qt\\Work\\Ziba_SQLite\\feeds01.opml");
+    OPMLImport ("feeds01.opml");
 }

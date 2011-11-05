@@ -18,7 +18,8 @@ SOURCES += main.cpp\
     fileDownloader.cpp \
     downloadqueue.cpp \
     rssUpdater.cpp \
-    zibazing.cpp
+    zibazing.cpp \
+    rssfeedsmodel.cpp
 
 HEADERS  += mainwindow.h \
     podcastsdb.h \
@@ -27,7 +28,8 @@ HEADERS  += mainwindow.h \
     fileDownloader.h \
     downloadqueue.h \
     rssUpdater.h \
-    zibazing.h
+    zibazing.h \
+    rssfeedsmodel.h
 
 FORMS    += mainwindow.ui
 
@@ -35,10 +37,14 @@ OTHER_FILES += \
     ListOfRSSItem.qml \
     ListOfRSSFeed.qml \
     feeds01.opml \
-    podcast_db.sqlite
+    podcast_db.sqlite \
+    mordaLitza.qml
 
 RESOURCES += \
     iconsPack.qrc
+
+
+
 
 
 

@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include "rssfeedsmodel.h"
 
 namespace Ui {
     class MainWindow;
@@ -19,22 +20,8 @@ public slots:
     void testImport ();
 private:
     Ui::MainWindow *ui;
-};
 
-//class Singleton
-//{
-//public:
-//	static Singleton *instance()
-//	{
-//		static Singleton pointer;
-//		return &pointer;
-//	}
-//private:
-//	Singleton();
-//};
-//inline singleton()
-//{
-//	return Singleton::instance();
-//}
+    rssFeedsModel rfModel;
+};
 
 #endif // MAINWINDOW_H

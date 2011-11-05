@@ -1,5 +1,6 @@
 #include "zibazing.h"
 #include <QFile>
+#include <QFileInfo>
 #include <QDebug>
 #include <QCoreApplication>
 
@@ -55,7 +56,8 @@ int  zibazing::markShowsAsOldInADays()
 
 void zibazing::updateDone ()
 {
-
+    QDateTime l_nextUpdate = QDateTime::currentDateTime().addSecs(3600*updateEveryHours());
+    set.setValue("nextUpdate", l_nextUpdate);
 }
 
 QString zibazing::dbaseName()
@@ -65,7 +67,15 @@ QString zibazing::dbaseName()
     {
         // TODO: Решить таки, где хранить базу!
         // l_DBaseName = QDir::homePath()+"/ziba.sqlite";
-        l_DBaseName = qApp->applicationDirPath() + "/ziba.sqlite";
+        qDebug () << "qApp->applicationDirPath():" << qApp->applicationDirPath();
+        qDebug () << "QDir::homePath():" << QDir::homePath();
+        QFileInfo fi (qApp->applicationDirPath(), "ziba.sqlite");
+        l_DBaseName = fi.absoluteFilePath();
+        qDebug () << "new DBaseName: " << l_DBaseName;
+    }
+
+    if (!QFile(l_DBaseName).exists())
+    {
         qDebug() << "Creating dBase at: " << l_DBaseName;
         // Copy default db
         if (QFile::copy ( ":/default/podcast_db.sqlite", l_DBaseName ))

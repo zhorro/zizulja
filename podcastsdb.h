@@ -21,6 +21,7 @@ public:
     bool exists (QUrl);
 
     QSqlQuery feedQuery( QUrl url );
+    QSqlQuery feedView ();
 
     void append (QUrl);
 public slots:

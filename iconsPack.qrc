@@ -23,4 +23,54 @@
         <file>feeds01.opml</file>
         <file>podcast_db.sqlite</file>
     </qresource>
+    <qresource prefix="/toolbars">
+        <file>IconsPack/toolbars/podcast_tab_feeds.svg</file>
+        <file>IconsPack/toolbars/podcast_tab_queue.svg</file>
+        <file>IconsPack/toolbars/podcast_tab_search.svg</file>
+        <file>IconsPack/toolbars/podcast_tb_addfeed.svg</file>
+        <file>IconsPack/toolbars/podcast_tb_cancel.svg</file>
+        <file>IconsPack/toolbars/podcast_tb_clear.svg</file>
+        <file>IconsPack/toolbars/podcast_tb_delete.svg</file>
+        <file>IconsPack/toolbars/podcast_tb_download.svg</file>
+        <file>IconsPack/toolbars/podcast_tb_marknew.svg</file>
+        <file>IconsPack/toolbars/podcast_tb_markold.svg</file>
+        <file>IconsPack/toolbars/podcast_tb_remove.svg</file>
+        <file>IconsPack/toolbars/podcast_tb_resume.svg</file>
+        <file>IconsPack/toolbars/podcast_tb_search.svg</file>
+        <file>IconsPack/toolbars/podcast_tb_settings.svg</file>
+        <file>IconsPack/toolbars/podcast_tb_suspend.svg</file>
+        <file>IconsPack/toolbars/podcast_tb_update.svg</file>
+        <file>IconsPack/toolbars/podcast_tb_updateall.svg</file>
+    </qresource>
+    <qresource prefix="/originals/SVG_files">
+        <file>IconsPack/originals/SVG_files/Audio.svg</file>
+        <file>IconsPack/originals/SVG_files/Audio_blue.svg</file>
+        <file>IconsPack/originals/SVG_files/Audio_green.svg</file>
+        <file>IconsPack/originals/SVG_files/Audio_pink.svg</file>
+        <file>IconsPack/originals/SVG_files/Feed.svg</file>
+        <file>IconsPack/originals/SVG_files/Podcatcher_48px.svg</file>
+        <file>IconsPack/originals/SVG_files/Podcatcher_64px.svg</file>
+        <file>IconsPack/originals/SVG_files/Video.svg</file>
+    </qresource>
+    <qresource prefix="/originals/SVG_Left_overlays">
+        <file>IconsPack/originals/SVG_Left_overlays/Blue_left.svg</file>
+        <file>IconsPack/originals/SVG_Left_overlays/Broken_left.svg</file>
+        <file>IconsPack/originals/SVG_Left_overlays/Download_left.svg</file>
+        <file>IconsPack/originals/SVG_Left_overlays/Green_left.svg</file>
+        <file>IconsPack/originals/SVG_Left_overlays/New_showstate_left.svg</file>
+        <file>IconsPack/originals/SVG_Left_overlays/Not_downloaded_left.svg</file>
+        <file>IconsPack/originals/SVG_Left_overlays/Queue_downloaded_left.svg</file>
+        <file>IconsPack/originals/SVG_Left_overlays/Red_left.svg</file>
+    </qresource>
+    <qresource prefix="/originals/SVG_Right_overlays">
+        <file>IconsPack/originals/SVG_Right_overlays/Blue_right.svg</file>
+        <file>IconsPack/originals/SVG_Right_overlays/Broken_right.svg</file>
+        <file>IconsPack/originals/SVG_Right_overlays/Download_right.svg</file>
+        <file>IconsPack/originals/SVG_Right_overlays/Green_right.svg</file>
+        <file>IconsPack/originals/SVG_Right_overlays/New_showstate_right.svg</file>
+        <file>IconsPack/originals/SVG_Right_overlays/Not_downloaded_left.svg</file>
+        <file>IconsPack/originals/SVG_Right_overlays/Not_downloaded_right.svg</file>
+        <file>IconsPack/originals/SVG_Right_overlays/Queue_downloaded_right.svg</file>
+        <file>IconsPack/originals/SVG_Right_overlays/Red_right.svg</file>
+    </qresource>
 </RCC>
