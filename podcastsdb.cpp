@@ -237,7 +237,7 @@ QSqlQuery podcastsDB::feedQuery(QUrl url)
 QSqlQuery podcastsDB::feedView ()
 {
     QSqlQuery query(dbase);
-    query.prepare("SELECT * FROM sources");
+    query.prepare("SELECT rss_url FROM sources");
     if (!query.exec())
         qDebug() << "error finding. SQL:" << query.executedQuery();
     return query;
