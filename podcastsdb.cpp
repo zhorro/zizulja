@@ -24,17 +24,55 @@ podcastsDB::podcastsDB(QObject *parent) :
 
 void podcastsDB::run ()
 {
-    workingFolder = QDir().currentPath(); //TODO: Переделать на чтение из QSetings
+    workingFolder = QDir().currentPath(); //TODO: РџРµСЂРµРґРµР»Р°С‚СЊ РЅР° С‡С‚РµРЅРёРµ РёР· QSetings
 
     dbase = QSqlDatabase::addDatabase("QSQLITE");
     dbase.setDatabaseName(ziba.dbaseName());
 
     if (!dbase.open()) {
-        qDebug() << "При открытии базы что-то пошло не так!";
-        throw QString ("При открытии базы что-то пошло не так!");
-        return;
+        // РђРђР°Р°Р°Р°!!   Р“РґРµ РјРѕСЏ Р±Р°Р·РѕС‡РєР°!!!
+        qDebug() << "РђРђР°Р°Р°Р°!!   Р“РґРµ РјРѕСЏ Р±Р°Р·РѕС‡РєР°!!!";
+        throw QString ("РќРµ РѕС‚РєСЂС‹РІР°РµС‚СЃСЏ Р±Р°Р·Р° РїРѕ Р°РґСЂРµСЃСѓ %1").arg(ziba.dbaseName());
     }
-//    exec();
+
+    QSqlQuery queryOfCreatingPeredachki(dbase);
+    if (queryOfCreatingPeredachki.exec (
+                "CREATE TABLE peredachki ("
+                "id                 INTEGER     PRIMARY KEY,"
+                "mp3                TEXT,"
+                "url                TEXT,"
+                "played             BOOLEAN,"
+                "downloaded         BOOLEAN,"
+                "created            TIME,"
+                "duration           DOUBLE,"
+                "lastPlayedPosition DOUBLE,"
+                "description        TEXT,"
+                "shownotes          TEXT,"
+                "ustareet           TIME,"
+                "src                TEXT,"
+                "stillInFeed        BOOLEAN,"
+                "link               TEXT,"
+                "updating           BOOLEAN,"
+                "title              TEXT,"
+                "GUID               TEXT"
+                ")"))
+            qDebug () << "TABLE peredachki successfuly created";
+    else
+            qDebug () << "TABLE peredachki not created: " << queryOfCreatingPeredachki.lastError ();
+
+//CREATE TABLE sources (title text,"rss_url" text,"index" integer NOT NULL PRIMARY KEY AUTOINCREMENT,icon text,zivka integer)
+    QSqlQuery queryOfCreatingSources(dbase);
+    if (queryOfCreatingSources.exec (
+                "CREATE TABLE sources ("
+                "id                 INTEGER     PRIMARY KEY,"
+                "title              TEXT,"
+                "rss_url            TEXT,"
+                "icon               TEXT,"
+                "zivka              INTEGER"
+                ")"))
+            qDebug () << "TABLE sources successfuly created";
+    else
+            qDebug () << "TABLE sources not created: " << queryOfCreatingSources.lastError ();
 }
 
 podcastsDB::~podcastsDB()
@@ -156,7 +194,7 @@ void podcastsDB::update(QUrl u)
 void podcastsDB::updateAll(void)
 {
     allRecords = QSqlQuery (dbase);
-    allRecords.prepare("SELECT * FROM sources"); // Всех
+    allRecords.prepare("SELECT * FROM sources"); // Р’СЃРµС…
     if (!allRecords.exec())
         qDebug() << "error finding. SQL:" << allRecords.executedQuery();
     updateNext();
@@ -177,7 +215,10 @@ void podcastsDB::updateImage (QUrl src, QString imgUrl)
 void podcastsDB::updateTitle (QUrl src, QString newTitle)
 {
     QSqlQuery query = feedQuery (src);
-    query.record().field("title").setValue(newTitle);
+    if (query.next())
+        query.record().setValue("title",newTitle);
+    else
+        qDebug () << "shift happen";
 }
 
 QString podcastsDB::imgName (QUrl rssUrl)
@@ -194,7 +235,7 @@ QString podcastsDB::imgName (QUrl rssUrl)
         QString res = query.record().value("icon").toString();
         if (!res.isEmpty())
             return res;
-        // Генерируем имя иконки из урла
+        // Р“РµРЅРµСЂРёСЂСѓРµРј РёРјСЏ РёРєРѕРЅРєРё РёР· СѓСЂР»Р°
         qDebug () << rssUrl.encodedQuery();
         QFileInfo fi (rssUrl.encodedQuery());
         qDebug() << fi.fileName();
@@ -220,7 +261,7 @@ QString podcastsDB::imgName (QUrl rssUrl)
 
     }
     else
-        throw QString ("Обращение к несозданному полю");
+        throw QString ("РћР±СЂР°С‰РµРЅРёРµ Рє РЅРµСЃРѕР·РґР°РЅРЅРѕРјСѓ РїРѕР»СЋ");
 }
 
 QSqlQuery podcastsDB::feedQuery(QUrl url)

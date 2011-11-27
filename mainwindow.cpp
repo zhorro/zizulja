@@ -11,8 +11,9 @@ MainWindow::MainWindow(QWidget *parent) :
     rfModel(this)
 {
     ui->setupUi(this);
-    connect(ui->actionImport, SIGNAL(triggered()), this, SLOT(testImport()));
-    connect(ui->actionUpdateAll, SIGNAL(triggered()), &pdb, SLOT(updateAll()));
+
+    connect(ui->pbCheckForUpdate1, SIGNAL(clicked()), &pdb, SLOT(updateAll()));
+    connect(ui->pbCheckForUpdate2, SIGNAL(clicked()), &pdb, SLOT(updateAll()));
 
     ui->RSSView->setModel(&rfModel);
 }

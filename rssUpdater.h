@@ -5,11 +5,13 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QUrl>
-#include <QXmlStreamReader>
+#include <QDomDocument>
 #include <QSemaphore>
 #include <QFile>
+#include <QByteArray>
 
 #include "rssfeeditem.h"
+#include "downloadqueue.h"
 
 static const int maximumRssFeedUpdates = 5;
 
@@ -19,7 +21,6 @@ class rssUpdater : public QThread
 public:
     void run(void);
     explicit rssUpdater(QObject *parent = 0);
-    bool isBusy();
 
 signals:
     void startUpdate (QUrl src);
@@ -30,37 +31,7 @@ signals:
 
 public slots:
     void update (QUrl rssAddress);
-    void fetch();
-    void metaDataChanged();
-    void finished();
-    void readyRead();
-    void error(QNetworkReply::NetworkError);
-
 private:
-    void parseXml();
-    void get(const QUrl&);
-
-    QUrl address;
-    rssFeedItem rss;
-    // Нужны для парсинга урлов
-    QXmlStreamReader xml;
-    QString currentTag;
-    QString linkString;
-    QString titleString;
-    QString unknownString;
-
-    QNetworkAccessManager manager;
-    QNetworkReply *currentReply;
-    enum parsingStates {
-        parsingOther,
-        parsingItem,
-        parsingImage,
-        parsingTitle
-    };
-    parsingStates processingItem;
-    bool busy;
-
-    QFile rssFile;
-
+    DownloadQueue dqueue;
 };
 #endif // RSSCONTAINER_H

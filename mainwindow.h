@@ -18,6 +18,7 @@ public:
 
 public slots:
     void testImport ();
+
 private:
     Ui::MainWindow *ui;
 

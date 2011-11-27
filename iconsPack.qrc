@@ -21,7 +21,6 @@
     </qresource>
     <qresource prefix="/default">
         <file>feeds01.opml</file>
-        <file>podcast_db.sqlite</file>
     </qresource>
     <qresource prefix="/toolbars">
         <file>IconsPack/toolbars/podcast_tab_feeds.svg</file>

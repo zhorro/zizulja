@@ -14,10 +14,8 @@ rssFeedItem::rssFeedItem (QSqlRecord * f)
         localMp3    = f->value("mp3").toString();
         title       = f->value("title").toString();
         description = f->value("description").toString();
-        GUID        = f->value("GUID").toString();
         duration    = f->value("duration").toDouble();
         creation    = f->value("created").toDateTime();
-        showNotes   = f->value("shownotes").toString();
 
         played      = f->value("played").toBool();
         downloaded  = f->value("downloaded").toBool();
@@ -36,14 +34,9 @@ void rssFeedItem::bindItem (QSqlQuery & query)
     query.bindValue(":created",     creation);
     query.bindValue(":duration",    duration);
     query.bindValue(":description", description);
-    query.bindValue(":shownotes",   showNotes);
     query.bindValue(":ustareet",    ustareet);
     query.bindValue(":stillInFeed", stillInFeed);
     query.bindValue(":link",        link.toString());
     query.bindValue(":updating",    false);
     query.bindValue(":title",       title);
-    query.bindValue(":GUID",        GUID);
-
-
-
 }

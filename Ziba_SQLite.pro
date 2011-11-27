@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     downloadqueue.cpp \
     rssUpdater.cpp \
     zibazing.cpp \
-    rssfeedsmodel.cpp
+    rssfeedsmodel.cpp \
+    rssParser.cpp
 
 HEADERS  += mainwindow.h \
     podcastsdb.h \
@@ -29,7 +30,8 @@ HEADERS  += mainwindow.h \
     downloadqueue.h \
     rssUpdater.h \
     zibazing.h \
-    rssfeedsmodel.h
+    rssfeedsmodel.h \
+    rssParser.h
 
 FORMS    += mainwindow.ui
 
@@ -37,11 +39,21 @@ OTHER_FILES += \
     ListOfRSSItem.qml \
     ListOfRSSFeed.qml \
     feeds01.opml \
-    podcast_db.sqlite \
-    mordaLitza.qml
+    mordaLitza.qml \
+    qtc_packaging/debian_harmattan/rules \
+    qtc_packaging/debian_harmattan/README \
+    qtc_packaging/debian_harmattan/manifest.aegis \
+    qtc_packaging/debian_harmattan/copyright \
+    qtc_packaging/debian_harmattan/control \
+    qtc_packaging/debian_harmattan/compat \
+    qtc_packaging/debian_harmattan/changelog
 
 RESOURCES += \
     iconsPack.qrc
+
+
+
+
 
 
 

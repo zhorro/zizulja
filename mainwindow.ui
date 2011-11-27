@@ -31,7 +31,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QPushButton" name="pushButton_3">
+           <widget class="QPushButton" name="pbCheckForUpdate1">
             <property name="text">
              <string>Check for update</string>
             </property>
@@ -66,9 +66,9 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QPushButton" name="pushButton_6">
+           <widget class="QPushButton" name="pbCheckForUpdate2">
             <property name="text">
-             <string>PushButton</string>
+             <string>Check for update</string>
             </property>
            </widget>
           </item>
@@ -148,30 +148,8 @@
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionImport">
-   <property name="icon">
-    <iconset resource="iconsPack.qrc">
-     <normaloff>:/toolbars/IconsPack/toolbars/podcast_tab_feeds.svg</normaloff>
-     <normalon>:/toolbars/IconsPack/toolbars/podcast_tb_updateall.svg</normalon>:/toolbars/IconsPack/toolbars/podcast_tab_feeds.svg</iconset>
-   </property>
-   <property name="text">
-    <string>Import</string>
-   </property>
-  </action>
-  <action name="actionUpdateAll">
-   <property name="icon">
-    <iconset>
-     <normalon>:/toolbars/IconsPack/toolbars/podcast_tb_update.svg</normalon>
-    </iconset>
-   </property>
-   <property name="text">
-    <string>Update all</string>
-   </property>
-  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="iconsPack.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

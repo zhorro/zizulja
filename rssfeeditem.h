@@ -16,13 +16,11 @@ public:
     void bindItem (QSqlQuery & query);
 
     QUrl mp3Url;
-    QUrl link;   // Ссылка на описание
+    QUrl link;   // РЎСЃС‹Р»РєР° РЅР° РѕРїРёСЃР°РЅРёРµ
 
     QString localMp3;
     QString title;
     QString description;
-    QString GUID;
-    QString showNotes;
     double duration;
     QDateTime creation;
 

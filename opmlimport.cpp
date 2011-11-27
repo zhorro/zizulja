@@ -37,10 +37,10 @@ public:
         if (localName == "outline" && idx>0)
         {
             QUrl url (atts.value(idx));
-            qDebug() << "Íàøëè îïèñàíèå, url = " << url.toString();
-            // Ïðîâåðèòü åñòü ëè â áàçå ñ òàêèì óðëîì ïîäêàñò
-            if (pdb.exists(url)) // Óæå òàêîé åñòü
-                return true; // Ëîâèòü íå÷åãî
+            qDebug() << "ÐÐ°ÑˆÐ»Ð¸ Ð¾Ð¿Ð¸ÑÐ°Ð½Ð¸Ðµ, url = " << url.toString();
+            // ÐŸÑ€Ð¾Ð²ÐµÑ€Ð¸Ñ‚ÑŒ ÐµÑÑ‚ÑŒ Ð»Ð¸ Ð² Ð±Ð°Ð·Ðµ Ñ Ñ‚Ð°ÐºÐ¸Ð¼ ÑƒÑ€Ð»Ð¾Ð¼ Ð¿Ð¾Ð´ÐºÐ°ÑÑ‚
+            if (pdb.exists(url)) // Ð£Ð¶Ðµ Ñ‚Ð°ÐºÐ¾Ð¹ ÐµÑÑ‚ÑŒ
+                return true; // Ð›Ð¾Ð²Ð¸Ñ‚ÑŒ Ð½ÐµÑ‡ÐµÐ³Ð¾
 
             pdb.append (url);
             m_newElements++;

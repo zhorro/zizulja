@@ -11,38 +11,39 @@
 
 class fileDownloader : public QObject
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-        explicit fileDownloader(QString rssAddress = "", QString fileName = "", QObject *parent = 0);
-        bool isActive() {return active;}
+    QUrl initialUrl;
+    QString fileName;
+    enum {ok, badUrl, ioErrors, notFinished} status;
+
+    explicit fileDownloader(QNetworkAccessManager * manager, QObject *parent = 0);
+    bool isActive() {return active;}
 
 signals:
-        void done();
-		void progress(float complete); //TODO: Нужно эмитить
+    void done();
+    void progress(float complete); //TODO: Р§РµРіРѕ С‚Рѕ Р±С‹Р»Рѕ, РЅРѕ РєР°РЅСѓР»Рѕ РІ РєРѕРґРёСЂРѕРІРєРµ
 
 public slots:
-        void updateAddress (QUrl rssAddress);
-        void updateFileName(QString newFileName);
-		void fetch();
-		void metaDataChanged();
-        void finished();
-		void readyRead();
-		void error(QNetworkReply::NetworkError);
+    void getFromAddress (QUrl rssAddress, QString newFileName = "");
 
+protected slots:
+    void metaDataChanged();
+    void finished();
+    void readyRead();
+    void error(QNetworkReply::NetworkError);
+    void get(const QUrl &url);
 private:
-	void get(const QUrl &url);
 
-	QUrl address;
-	// Нужны для парсинга урлов
-	QXmlStreamReader xml;
-	QString currentTag;
-	QString linkString;
-	QString titleString;
+    bool active;
+    QUrl address;
 
-	QNetworkAccessManager manager;
-	QNetworkReply *currentReply;
-        QFile file;
-        void setDone(bool newState);
-        bool active;
+    QNetworkAccessManager * manager;
+    QNetworkReply *currentReply;
+    QFile file;
+    QByteArray data;
+
+    void setActive(bool newState);
+    void openFile(QString fileName);
 };
 #endif // PodcastDownloader_H

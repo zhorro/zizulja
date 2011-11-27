@@ -4,47 +4,58 @@
 #include <QUrl>
 #include "fileDownloader.h"
 
-//TODO: �������� ��������� ������
-//TODO: �������� ��������� ���������
-//TODO: �������� ������������� ����������
+//TODO: Добавить обработку ошибок
+//TODO: Добавить хераченье прогресса
+//TODO: Добавить возобновление скачивания ? В самом конце, ибо глючная весчь
 
-fileDownloader::fileDownloader(QString podcastUrl, QString newFileName, QObject *parent) :
-    QObject(parent), currentReply(0), active(false)
+fileDownloader::fileDownloader(QNetworkAccessManager * networkManager, QObject *parent) :
+    QObject(parent), currentReply(0), active(false), manager(networkManager)
 {
-    updateAddress(podcastUrl);
-    updateFileName(newFileName);
+
 }
 
-void fileDownloader::setDone(bool newState)
+void fileDownloader::setActive(bool newState)
 {
     if (active && !newState)
         emit done();
     active = newState;
 }
 
-void fileDownloader::updateAddress (QUrl rssAddress)
+void fileDownloader::getFromAddress (QUrl rssAddress, QString fileName)
 {
-    address = rssAddress;
+    initialUrl = address = rssAddress;
+    status = notFinished;
+    if (!fileName.isEmpty ())
+        openFile(fileName);
+    get(QUrl(address));
 }
 
-void fileDownloader::updateFileName(QString newFileName)
+void fileDownloader::openFile(QString fileName)
 {
-    file.setFileName(newFileName);
+    this->fileName = fileName;
+    qDebug() << "starting download file: " << fileName;
+    file.setFileName (fileName);
+    bool res = file.open(QIODevice::WriteOnly);
+    if (res)
+    {
+        status = ioErrors;
+        throw QString ("file %1 : error opening : %2").arg(fileName).arg(file.errorString ());
+    }
 }
 
-/*
-Starts the network request and connects the needed signals
-*/
 void fileDownloader::get(const QUrl &url)
 {
-    setDone(true);
+    //TODO: Возможно тут нужно добавить ожидение WiFi -
+    // курить QNetworkConfigurationManager. Но скорее всего не нужно плодить сущностей,
+    // и такой переход правильнее всего будет добавить выше, в очереди
+    setActive(true);
     QNetworkRequest request(url);
     if (currentReply)
     {
         currentReply->disconnect(this);
         currentReply->deleteLater();
     }
-    currentReply = manager.get(request);
+    currentReply = manager->get(request);
 
     qDebug () << connect(currentReply, SIGNAL(finished ()), this, SLOT(finished ()));
     qDebug () << connect(currentReply, SIGNAL(readyRead()), this, SLOT(readyRead()));
@@ -53,26 +64,13 @@ void fileDownloader::get(const QUrl &url)
 }
 
 
-void fileDownloader::fetch()
-{
-    if (!file.isOpen()) // ���� ����� ��� �� �������������
-        file.open(QIODevice::WriteOnly);
-
-    QUrl url(address);
-    get(url);
-}
-
-/*
-Reads data received from the RDF source.
-
-We read all the available data, and pass it to the XML
-stream reader. Then we call the XML parsing function.
-*/
-
 void fileDownloader::readyRead()
 {
-    if (!file.isOpen()) // ���� ����� ��� �� �������������
-        qWarning("���� �� ������!");
+    if (!file.isOpen()) // Если файло еще не использовался
+    {
+        // Парсим наконец то имя файла, который в нас прилител
+        openFile(address.toLocalFile ()); // BUG: не верю, что всё может быть так просто!
+    }
 
     int statusCode = currentReply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
     if (statusCode >= 200 && statusCode < 300)
@@ -86,7 +84,8 @@ void fileDownloader::readyRead()
 void fileDownloader::finished()
 {
     file.close();
-    setDone(false);
+    setActive(false);
+    status = ok;
 }
 
 void fileDownloader::error(QNetworkReply::NetworkError)
@@ -96,7 +95,7 @@ void fileDownloader::error(QNetworkReply::NetworkError)
     currentReply->deleteLater();
     currentReply = 0;
     file.close();
-    setDone(false);
+    setActive(false);
 }
 
 void fileDownloader::metaDataChanged()
