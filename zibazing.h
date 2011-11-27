@@ -13,7 +13,7 @@ class zibazing : public QObject
 public:
     explicit zibazing(QObject *parent = 0);
     QDir podcastsDir ();
-    QDateTime nextUpdate(); // Когда следуйщий раз всех проапдейтить
+    QDateTime nextUpdate(); // РљРѕРіРґР° СЃР»РµРґСѓР№С‰РёР№ СЂР°Р· РІСЃРµС… РїСЂРѕР°РїРґРµР№С‚РёС‚СЊ
     bool downloadShowsAutomatically();
     int  deleteOldShowsInADays();
     int  markShowsAsOldInADays();

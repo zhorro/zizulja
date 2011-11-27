@@ -62,24 +62,8 @@ void zibazing::updateDone ()
 
 QString zibazing::dbaseName()
 {
-    QString l_DBaseName = set.value("DBaseName", QVariant(QString())).toString();
-    if (l_DBaseName.isEmpty())
-    {
-        // TODO: Решить таки, где хранить базу!
-        // l_DBaseName = QDir::homePath()+"/ziba.sqlite";
-        qDebug () << "qApp->applicationDirPath():" << qApp->applicationDirPath();
-        qDebug () << "QDir::homePath():" << QDir::homePath();
-        QFileInfo fi (qApp->applicationDirPath(), "ziba.sqlite");
-        l_DBaseName = fi.absoluteFilePath();
-        qDebug () << "new DBaseName: " << l_DBaseName;
-    }
-
-    if (!QFile(l_DBaseName).exists())
-    {
-        qDebug() << "Creating dBase at: " << l_DBaseName;
-        // Copy default db
-        if (QFile::copy ( ":/default/podcast_db.sqlite", l_DBaseName ))
-            set.setValue("DBaseName", l_DBaseName);
-    }
-    return l_DBaseName;
+    // Переделать на создание новой, пустой базы данных. А то вдруг там бинарно не совместимая гадость?
+    QString dbName = podcastsDir().cleanPath("podcast_db.sqlite");
+    qDebug() << "using db name: " << dbName;
+    return dbName;
 }
